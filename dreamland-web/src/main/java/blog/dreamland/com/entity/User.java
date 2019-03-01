@@ -1,98 +1,83 @@
 package blog.dreamland.com.entity;
 
-import lombok.Data;
+public class User {
+    private Long id;
 
-import java.util.Date;
+    private String email;
 
-public @Data class User {
-    private String user;
+    private String password;
 
-    private String host;
+    private String phone;
 
-    private String selectPriv;
+    private String nickName;
 
-    private String insertPriv;
+    private String state;
 
-    private String updatePriv;
+    private String imgUrl;
 
-    private String deletePriv;
+    private String enable;
 
-    private String createPriv;
+    public Long getId() {
+        return id;
+    }
 
-    private String dropPriv;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    private String reloadPriv;
+    public String getEmail() {
+        return email;
+    }
 
-    private String shutdownPriv;
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
 
-    private String processPriv;
+    public String getPassword() {
+        return password;
+    }
 
-    private String filePriv;
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
-    private String grantPriv;
+    public String getPhone() {
+        return phone;
+    }
 
-    private String referencesPriv;
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
 
-    private String indexPriv;
+    public String getNickName() {
+        return nickName;
+    }
 
-    private String alterPriv;
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
 
-    private String showDbPriv;
+    public String getState() {
+        return state;
+    }
 
-    private String superPriv;
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
+    }
 
-    private String createTmpTablePriv;
+    public String getImgUrl() {
+        return imgUrl;
+    }
 
-    private String lockTablesPriv;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+    }
 
-    private String executePriv;
+    public String getEnable() {
+        return enable;
+    }
 
-    private String replSlavePriv;
-
-    private String replClientPriv;
-
-    private String createViewPriv;
-
-    private String showViewPriv;
-
-    private String createRoutinePriv;
-
-    private String alterRoutinePriv;
-
-    private String createUserPriv;
-
-    private String eventPriv;
-
-    private String triggerPriv;
-
-    private String createTablespacePriv;
-
-    private String sslType;
-
-    private Integer maxQuestions;
-
-    private Integer maxUpdates;
-
-    private Integer maxConnections;
-
-    private Integer maxUserConnections;
-
-    private String plugin;
-
-    private String passwordExpired;
-
-    private Date passwordLastChanged;
-
-    private Short passwordLifetime;
-
-    private String accountLocked;
-
-    private String createRolePriv;
-
-    private String dropRolePriv;
-
-    private Short passwordReuseHistory;
-
-    private Short passwordReuseTime;
-
+    public void setEnable(String enable) {
+        this.enable = enable == null ? null : enable.trim();
+    }
 }
