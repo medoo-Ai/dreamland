@@ -6,6 +6,7 @@ import blog.dreamland.com.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,16 +23,18 @@ public class UserServiceImpl implements UserService {
     /**
      * 注册
      */
+    @Transactional
     @Override
     public int register(User user) {
         //先查询用户
-        List<User> userList = userMapper.select(user);
-        if (userList.size() == 0) {
-            int insert = userMapper.insert(user);
-            // 插入数据库
-            return insert;
-        }
-        return 0;
+//        List<User> userList = userMapper.select(user);
+//        if (userList.isEmpty()) {
+//            int insert = userMapper.insert(user);
+//            // 插入数据库
+//            return insert;
+//        }
+//        return 0;
+        return userMapper.insert(user);
     }
 
     /**
@@ -96,6 +99,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 删除用户通过email
      */
+    @Transactional
     @Override
     public void deleteByEmail(String email) {
         User user = new User();
@@ -108,6 +112,7 @@ public class UserServiceImpl implements UserService {
     /**
      * 更新账户信息
      */
+    @Transactional
     @Override
     public void update(User user) {
         userMapper.updateByPrimaryKeySelective(user);
