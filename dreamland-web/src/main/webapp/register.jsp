@@ -244,6 +244,31 @@
         }
     }
 
+    // 注册提交按钮
+
+    $("#to_register").click(function () {
+        // 判断用户  勾选了协议
+        // 判断用户信息是否填写完整
+        if (!checkProtocol()) {
+            $("#protocol_span").text("请勾选阅读并接受囚徒网用户协议").css("color","red");
+            //
+        }else {
+            $("#protocol_span").text("");
+        }
+
+
+        if (checkPhone()  &&  checkPassword()&& checkEmail() && checkNickName()&& checkCode() && checkProtocol()){
+            $("#registerForm").submit();
+        }else {
+            $("#reg_span").text("请把信息填写完整").css("color","red");
+        }
+
+
+
+    });
+
+
+
 
 </script>
 </html>
