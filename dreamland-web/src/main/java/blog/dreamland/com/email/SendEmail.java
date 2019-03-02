@@ -49,7 +49,7 @@ public class SendEmail {
            message.setSubject("囚徒网激活邮件通知");
 
            // Set the content
-           message.setContent( "<a href=\"http://localhost:8090/register/activecode?email="+email+"&validateCode="+validateCode+"\" target=\"_blank\">请于24小时内点击激活</a>","text/html;charset=gb2312");
+           message.setContent( "<a href=\"http://localhost:8090/register/activeCode?email="+email+"&validateCode="+validateCode+"\" target=\"_blank\">请于24小时内点击激活</a>","text/html;charset=gb2312");
            message.saveChanges();
 
            Transport.send(message);
