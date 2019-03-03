@@ -112,9 +112,8 @@ public class UserServiceImpl implements UserService {
     /**
      * 更新账户信息
      */
-    @Transactional
     @Override
     public void update(User user) {
-        userMapper.updateByPrimaryKeySelective(user);
+        int i = userMapper.updateByPrimaryKeySelective(user);
     }
 }

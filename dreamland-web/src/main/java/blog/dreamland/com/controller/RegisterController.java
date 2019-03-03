@@ -98,7 +98,6 @@ public class RegisterController {
      * @return
      */
     @RequestMapping(value = "/doRegister", method = RequestMethod.POST)
-    @ResponseBody
     public String doRegister(Model model,
                              @RequestParam(value = "email", required = false) String email,
                              @RequestParam(value = "password", required = false) String password,
@@ -118,7 +117,7 @@ public class RegisterController {
             return "../register";
         }
         //和code 相等？
-        if (vercode.equalsIgnoreCase(code)) {
+        if (!vercode.equalsIgnoreCase(code)) {
             model.addAttribute("error", "验证码不正确");
             return "../register";
         }
@@ -180,8 +179,7 @@ public class RegisterController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "activeCode", method = RequestMethod.POST)
-    @ResponseBody
+    @RequestMapping(value = "activeCode", method = RequestMethod.GET)
     public String activeCode(Model model) {
         HashMap<String, Object> map = new HashMap<>();
         //从redis中取出code 通过email

@@ -1,8 +1,14 @@
 package blog.dreamland.com.entity;
 
+import javax.persistence.Id;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Date;
 
 public class LoginLog {
+    @Id//标识主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //自增长策略
     private Long id;
 
     private Long uId;

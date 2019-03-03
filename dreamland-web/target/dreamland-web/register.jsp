@@ -23,7 +23,7 @@
         <div class="zc">
             <div class="bj_bai" style="height: 408px">
                 <h3>欢迎注册</h3>
-                <form action="${ctx}/doRegister" method="post" id="registerForm">
+                <form action="${ctx}/register/doRegister" method="post" id="registerForm">
                     <span id="reg_span"></span>
                     <input id="phone" name="phone" type="text" class="kuang_txt phone" placeholder="手机号"
                            onblur="checkPhone();">
@@ -231,6 +231,43 @@
         }
         return flag_code;
     }
+
+    // 勾选用户协议
+    function checkProtocol() {
+        // 判断用户是否勾选了协议
+        if ($("#protocol").prop("checked")) {
+            $("#reg_span").text("");
+            // 勾选可提交  ，否则不能够提交
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 注册提交按钮
+
+    $("#to_register").click(function () {
+        // 判断用户  勾选了协议
+        // 判断用户信息是否填写完整
+        if (!checkProtocol()) {
+            $("#protocol_span").text("请勾选阅读并接受囚徒网用户协议").css("color","red");
+            //
+        }else {
+            $("#protocol_span").text("");
+        }
+
+
+        if (checkPhone()&& checkCode() && checkProtocol()){
+            $("#registerForm").submit();
+        }else {
+            $("#reg_span").text("请把信息填写完整").css("color","red");
+        }
+
+
+
+    });
+
+
 
 
 </script>

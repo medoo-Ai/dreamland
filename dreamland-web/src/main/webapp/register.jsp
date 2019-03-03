@@ -23,7 +23,7 @@
         <div class="zc">
             <div class="bj_bai" style="height: 408px">
                 <h3>欢迎注册</h3>
-                <form action="${ctx}/doRegister" method="post" id="registerForm">
+                <form action="${ctx}/register/doRegister" method="post" id="registerForm">
                     <span id="reg_span"></span>
                     <input id="phone" name="phone" type="text" class="kuang_txt phone" placeholder="手机号"
                            onblur="checkPhone();">
@@ -257,7 +257,7 @@
         }
 
 
-        if (checkPhone()  &&  checkPassword()&& checkEmail() && checkNickName()&& checkCode() && checkProtocol()){
+        if (checkPhone()&& checkCode() && checkProtocol()){
             $("#registerForm").submit();
         }else {
             $("#reg_span").text("请把信息填写完整").css("color","red");
