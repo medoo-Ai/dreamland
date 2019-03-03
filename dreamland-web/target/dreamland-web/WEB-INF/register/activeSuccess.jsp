@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>激活成功页面</title>
+    <title>勇士，你激活成功啦</title>
     <link href="${ctx}/css/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="${ctx}/css/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"/>
 
@@ -69,7 +69,7 @@
 <body>
 <div class="active-head">
     <div style="line-height: 44px;margin-left: 5px">
-        <span style="color: white;font-family: Arial;font-size: 18px">Dreamland - 梦境网激活成功页面</span>
+        <span style="color: white;font-family: Arial;font-size: 18px">Hello Dear - 恭喜你激活成功</span>
     </div>
     <div class="content">
         <div class="single-clear">
@@ -80,7 +80,7 @@
             <i class="icon-2x icon-check-circle-o" style="color: green"></i>&nbsp;&nbsp;<span style="font-size: 25px;color: green">恭喜激活成功！</span><br/>
 
         </div>
-        <div style="margin-left: 340px"> <span style="font-size: 17px;">您登陆梦境网的用户名为：<span style="color: green;font-weight: bold">${email}</span></span></div>
+        <div style="margin-left: 340px"> <span style="font-size: 17px;">您登陆阿拉德西海岸的手令为：<span style="color: green;font-weight: bold">${email}</span></span></div>
         <div style="margin-left: 420px;margin-top: 40px">
             <button class="btn btn-primary" type="button" id="btn" style="width: 150px">点此登陆</button>
         </div>
@@ -98,7 +98,7 @@
                 <ul>
                     <li>
                         <a href="#" target="_blank" rel="nofollow">
-                            关于梦境网
+                            关于火星
                         </a>
                     </li>
                     <li>
@@ -195,9 +195,9 @@
                 </p>
                 <p>
                     <span>违法和不良信息举报电话：010-xxxxxxx</span>
-                    <span>邮箱：xxx@dreamland.wang</span>
+                    <span>邮箱：xxx@火星.doudou</span>
                 </p>
-                <p style="margin-top: 8px">&copy;www.dreamland.wang 梦境网版权所有</p>
+                <p style="margin-top: 8px">&copy;www.火星.kylic 火星版权所有</p>
             </div>
         </div>
 

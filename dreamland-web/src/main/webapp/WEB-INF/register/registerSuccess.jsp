@@ -297,7 +297,7 @@
         $.ajax({
             data:{"email":email,"validateCode":toHex},
             dataType:'json',
-            url:'/register/sendEmail',
+            url:'/user/sendEmail',
             type:'post',
             success:function (data) {
             // 若 success 则成功

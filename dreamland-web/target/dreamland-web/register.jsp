@@ -23,7 +23,7 @@
         <div class="zc">
             <div class="bj_bai" style="height: 408px">
                 <h3>欢迎注册</h3>
-                <form action="${ctx}/register/doRegister" method="post" id="registerForm">
+                <form action="${ctx}/user/doRegister" method="post" id="registerForm">
                     <span id="reg_span"></span>
                     <input id="phone" name="phone" type="text" class="kuang_txt phone" placeholder="手机号"
                            onblur="checkPhone();">
@@ -143,7 +143,7 @@
             $.ajax({
                 data: {"phone": phone},
                 type: 'post',
-                url: '/register/checkPhone',
+                url: '/user/checkPhone',
                 dataType: 'json',
                 success: function (data) {
                     var val = data['message'];
@@ -213,7 +213,7 @@
             $.ajax({
                 data: {"code": code},
                 type: 'post',
-                url: '/register/checkCode',
+                url: '/user/checkCode',
                 dataType: 'json',
                 success: function (data) {
                     var val = data['message'];
