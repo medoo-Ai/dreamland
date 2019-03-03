@@ -236,12 +236,12 @@ public class UserController extends BaseController {
         ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         String vercode = (String) attrs.getRequest().getSession().getAttribute("VERCODE_KEY");
         if (vercode == null) {
-            model.addAttribute("error", "验证码超时");
+            model.addAttribute("error", "fail");
             return "../login";
         }
         //和code 相等？
         if (!vercode.equalsIgnoreCase(code)) {
-            model.addAttribute("error", "验证码不正确");
+            model.addAttribute("error", "fail");
             return "../login";
         }
 
@@ -263,7 +263,7 @@ public class UserController extends BaseController {
                 return "../login";
             }
             model.addAttribute("user", user);
-            return "personal/personal";
+            return "/personal/personal";
         }
     }
 

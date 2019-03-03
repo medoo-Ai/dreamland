@@ -243,7 +243,6 @@
         </dependency>
 
 
-
         <!--spring security安全框架-->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
         <dependency>
@@ -331,10 +330,31 @@
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
         </dependency>
+        <!--短信-->
+     <!--   <dependency>
+            <groupId>wang.dreamland.www</groupId>
+            <artifactId>dayu-sdk-core</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>wang.dreamland.www</groupId>
+            <artifactId>dayu-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
 
     </dependencies>
-
 
 
     <build>
