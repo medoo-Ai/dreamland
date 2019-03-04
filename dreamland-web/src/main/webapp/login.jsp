@@ -110,19 +110,21 @@
                 </div>
                 <!--手机登录-->
                 <div class="tab-pane fade" id="phone-login">
-                    <form role="form" class="login-form form-horizontal" id="phone_form" action="${ctx}/doLogin"
+                    <form role="form" class="login-form form-horizontal" id="phone_form" action="${ctx}/user/doLogin"
                           method="post">
                         <div class="form-group">
                             <label for="username" class="sr-only">用户名</label>
                             <div class="col-xs-12">
-                                <input type="text" id="phone" name="telephone" class="form-control" placeholder="手机号">
+                                <input type="text" id="phone" name="telephone" class="form-control" placeholder="手机号"
+                                       onblur="checkPhone();">
                                 <input type="hidden" id="tab" name="tab" value="pho-login">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="sr-only">密码</label>
                             <div class="col-xs-6">
-                                <input type="text" id="verifyCode" name="code" class="form-control" placeholder="验证码">
+                                <input type="text" id="verifyCode" name="code" class="form-control" placeholder="验证码"
+                                       onclick="checkPhoneCode();">
                             </div>
                             <div class="col-xs-6">
                                 <button class="btn btn-primary btn-block" id="go">获取验证码</button>
@@ -138,10 +140,10 @@
                             </div>
                         </div>
 
+                        <span id="phone_span"></span>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <button type="button" id="phone_btn" class="btn btn-primary btn-block"
-                                        onclick="normal_login()">登录
+                                <button type="button" id="phone_btn" class="btn btn-primary btn-block">登录
                                 </button>
                                 <br/>
                                 <div style="margin-left: 260px"><a href="register.jsp">立即注册</a></div>
@@ -246,16 +248,16 @@
 
     // enter   回车触发 normal_login()
 
-    $("#password").bind("keypress",function (event) {
+    $("#password").bind("keypress", function (event) {
 
-        if (event.keyCode==13){
+        if (event.keyCode == 13) {
             normal_login();
         }
     });
 
-    $("#code").bind("keypress",function (event) {
+    $("#code").bind("keypress", function (event) {
 
-        if (event.keyCode==13){
+        if (event.keyCode == 13) {
             normal_login();
         }
     });
@@ -270,6 +272,117 @@
     }
 
 
+    // onblur  验证手机号
+    var flag = false;
+
+    function checkPhone() {
+        var phone = $("#phone").val();
+        // 校验手机号是否为空
+        // 校验手机号的规则
+        //去掉前后空格
+        phone = phone.replace(/^\s+|\s+$/g, "");
+        if (phone == "") {
+            $("#phone_span").text("请输入手机号");
+            flag = false;
+        }
+        //
+        if (!(/^1[3|4|5|8|7][0-9]\d{8}$/.test(phone))) {
+            $("#phone_span").text("请重新输入手机号").css("color", "red");
+            flag = false;
+        } else {
+            //手机校验
+            $.ajax({
+                data: {"phone": phone},
+                type: 'post',
+                url: '/user/checkPhone',
+                dataType: 'json',
+                success: function (data) {
+                    var val = data['message'];
+                    if (val == "success") {
+                        $("#phone_span").text("");
+                        flag = true;
+                    } else {
+                        // 该手机已经被注册
+                        $("#phone_span").text("该手机号已经被注册").css("color", "red");
+                        flag = false;
+                    }
+                }
+            });
+        }
+        return flag;
+    }
+
+
+    // 校验手机验证码，并设置定时60s
+    $(function () {
+
+        var code = document.getElementById('go');
+        code.onclick = function (ev) {
+            // 判断手机号
+            if (!flag) {
+                $("#phone_span").text("手机号码非法或者未注册！").css("color", "red");
+            } else {
+                //huoqu  手机号
+                var phone = $("input[name='telephone']").val();
+                $("#go").attr("disabled", "disabled");
+                //倒计时60s  ajax 调发短信接口
+                TimeDead(60);
+                $.ajax({
+                    data: {"phone": phone},
+                    url: "${ctx}/sendMessage",
+                    dataType: 'json',
+                    type: 'post',
+                    success: function (data) {
+                        if (data["message"] == "success") {
+                            alert("ok");
+                        } else {
+                            alert("fail");
+                        }
+                    }
+                });
+            }
+            //    todo 不理解、、、、
+            var oEvent = ev || event;
+            //js阻止链接默认行为，没有停止冒泡
+            oEvent.preventDefault();
+
+        }
+    });
+
+    //倒计时
+    function TimeDead(s) {
+        if (s <= 0) {
+            $("#go").text("重新获取");
+            $("#go").removeAttr("disabled");
+            return;
+        }
+        /* $("#go").val(s + "秒后重新获取");*/
+        $("#go").text(s + "秒后重新获取");
+        setTimeout("TimeDead(" + (s - 1) + ")", 1000);
+    }
+
+    var p_flag = false;
+    function checkPhoneCode() {
+        //手机验证码检查
+        var reg = /^\d{6}\b/;
+        var code = $("#verifyCode").val();
+        if (reg.test(code)) {
+            p_flag = true;
+        } else {
+            p_flag = false;
+        }
+        return p_flag;
+    }
+
+
+    //手机号登录提交
+    $("#phone_btn").click(function () {
+        if (checkPhoneCode() && checkPhone()) {
+            $("#phone_form").submit();
+        } else {
+            alert("请输入手机号或者验证码");
+        }
+    });
 </script>
 </body>
 </html>

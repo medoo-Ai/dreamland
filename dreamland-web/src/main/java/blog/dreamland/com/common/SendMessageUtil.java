@@ -15,10 +15,10 @@ import com.aliyuncs.profile.IClientProfile;
  */
 public class SendMessageUtil {
 
-    private static String accessKeyId = "你的accessKeyId";//你的accessKeyId,参考本文档步骤2
-    private static String accessKeySecret = "你的accessKeySecret";//你的accessKeySecret，参考本文档步骤2
-    private static String setSignName = "你的短信签名名称";
-    private static String dayutemplateCode = "你的短信模板CODE";
+    private static String accessKeyId = "LTAIUWk6rjwkJ6jC";
+    private static String accessKeySecret = "nangXOw0eUcjRcYbgjOZYCNUMeZUn9";
+    private static String setSignName = "保险申请管理";
+    private static String dayutemplateCode = "SMS_147438724";
 
     public static void sendMessages(String code, String phone) {
         //设置超时时间-可自行调整
@@ -55,10 +55,8 @@ public class SendMessageUtil {
         try {
             sendSmsResponse = acsClient.getAcsResponse(request);
         } catch (ServerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClientException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
