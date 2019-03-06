@@ -101,9 +101,10 @@ public class UserController extends BaseController {
     public String doRegister(Model model,
                              @RequestParam(value = "email", required = false) String email,
                              @RequestParam(value = "password", required = false) String password,
-                             @RequestParam(value = "phone", required = false) String phone,
+                             @RequestParam(value = "code", required = false) String code,
                              @RequestParam(value = "nickName", required = false) String nickname,
-                             @RequestParam(value = "code", required = false) String code) {
+                             @RequestParam(value = "phone", required = false) String phone) {
+
         //校验验证码
         if (StringUtils.isBlank(code)) {
             model.addAttribute("error", "验证码非法，请君重新注册");
@@ -224,63 +225,85 @@ public class UserController extends BaseController {
                         @RequestParam(value = "password", required = false) String password,
                         @RequestParam(value = "code", required = false) String code,
                         @RequestParam(value = "phone", required = false) String phone,
+                        @RequestParam(value = "phoneCode", required = false) String phoneCode,
                         @RequestParam(value = "pageNum", required = false) Integer pageNum,
                         @RequestParam(value = "pageSize", required = false) Integer pageSize) {
         HashMap<String, Object> map = new HashMap<>();
-        // 判断验证码
-        if (StringUtils.isBlank(code)) {
-            model.addAttribute("error", "fail");
-            return "../login";
-        }
-        //对code 进行校验
-        ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        String vercode = (String) attrs.getRequest().getSession().getAttribute("VERCODE_KEY");
-        if (vercode == null) {
-            model.addAttribute("error", "fail");
-            return "../login";
-        }
-        //和code 相等？
-        if (!vercode.equalsIgnoreCase(code)) {
-            model.addAttribute("error", "fail");
-            return "../login";
-        }
 
-        String psw = MD5Util.encodeToHex(SALT_VALUE + password);
-        User user = userService.login(email, psw);
-        // 对user  进行非空校验
-
-        if (user == null) {
-            LOGGER.info("登录失败");
-            model.addAttribute("error", "fail");
-            model.addAttribute("email", email);
-            return "../login";
-        } else {
-            //对 user 的state 进行验证
-            if (user.getState().equals("0")) {
-                LOGGER.info("登录失败,用户未激活");
-                model.addAttribute("error", "unactive");
-                model.addAttribute("email", email);
+        //手机号登录
+        // 判断手机号是否为空
+        if (!StringUtils.isBlank(phone)) {
+            String redisPhoneCode = redisTemplate.opsForValue().get(phone);
+            if (redisPhoneCode.equals(phoneCode)) {
+                User user = userService.findUserByPhone(phone);
+                //放到 session
+                getSession().setAttribute("user", user);
+                model.addAttribute("user", user);
+                return "/personal/personal";
+            } else {
+                model.addAttribute("fail", "验证码失效");
                 return "../login";
             }
-            model.addAttribute("user", user);
-            return "/personal/personal";
+        } else {
+            // 账号登录
+
+
+            // 判断验证码
+            if (StringUtils.isBlank(code)) {
+                model.addAttribute("error", "fail");
+                return "../login";
+            }
+            //对code 进行校验
+            ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            String vercode = (String) attrs.getRequest().getSession().getAttribute("VERCODE_KEY");
+            if (vercode == null) {
+                model.addAttribute("error", "fail");
+                return "../login";
+            }
+            //和code 相等？
+            if (!vercode.equalsIgnoreCase(code)) {
+                model.addAttribute("error", "fail");
+                return "../login";
+            }
+
+            String psw = MD5Util.encodeToHex(SALT_VALUE + password);
+            User user = userService.login(email, psw);
+            // 对user  进行非空校验
+
+            if (user == null) {
+                LOGGER.info("登录失败");
+                model.addAttribute("error", "fail");
+                model.addAttribute("email", email);
+                return "../login";
+            } else {
+                //对 user 的state 进行验证
+                if (user.getState().equals("0")) {
+                    LOGGER.info("登录失败,用户未激活");
+                    model.addAttribute("error", "unactive");
+                    model.addAttribute("email", email);
+                    return "../login";
+                }
+                model.addAttribute("user", user);
+                return "/personal/personal";
+            }
         }
+
     }
 
     /**
      * 登录
+     *
      * @param model
      * @return
      */
     @RequestMapping("/login")
     public String login(Model model) {
-        User user = (User)getSession().getAttribute("user");
-        if(user!=null){
+        User user = (User) getSession().getAttribute("user");
+        if (user != null) {
             return "/personal/personal";
         }
         return "../login";
     }
-
 
 
 }

@@ -46,7 +46,7 @@
     <!-- 定义Queue监听器 -->
     <jms:listener-container destination-type="queue" container-type="default" connection-factory="connectionFactory" acknowledge="auto">
         <!-- 默认注册bean名称，应该是类名首字母小写  -->
-        <jms:listener destination="login_msg" ref="smsAuthenCode"/>
+        <jms:listener destination="phoneCode_msg" ref="myMessageListener"/>
     </jms:listener-container>
     <!-- 消息消费者 end -->
 </beans>

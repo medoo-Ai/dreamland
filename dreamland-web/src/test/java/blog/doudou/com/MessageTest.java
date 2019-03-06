@@ -1,6 +1,7 @@
 package blog.doudou.com;
 
-import blog.dreamland.com.common.SendMessageUtil;
+import blog.dreamland.com.mq.SendMessageUtil;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import org.junit.Test;
 
 /**
@@ -12,7 +13,11 @@ public class MessageTest {
 
     @Test
     public  void test(){
-        SendMessageUtil.sendMessages("123456", "17301781426");
+        SendSmsResponse sendSmsResponse = SendMessageUtil.sendMessages("123456", "17301781426");
+        System.out.println(sendSmsResponse.getCode());
+        System.out.println(sendSmsResponse.getMessage());
+        System.out.println(sendSmsResponse.getBizId());
+        System.out.println(sendSmsResponse.getRequestId());
     }
 
 }

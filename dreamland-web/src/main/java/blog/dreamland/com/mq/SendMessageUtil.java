@@ -1,4 +1,4 @@
-package blog.dreamland.com.common;
+package blog.dreamland.com.mq;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -20,7 +20,7 @@ public class SendMessageUtil {
     private static String setSignName = "保险申请管理";
     private static String dayutemplateCode = "SMS_147438724";
 
-    public static void sendMessages(String code, String phone) {
+    public static SendSmsResponse sendMessages(String code, String phone) {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -62,5 +62,6 @@ public class SendMessageUtil {
         if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
             //请求成功
         }
+        return sendSmsResponse;
     }
 }

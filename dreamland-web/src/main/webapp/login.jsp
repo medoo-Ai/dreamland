@@ -319,7 +319,7 @@
         var code = document.getElementById('go');
         code.onclick = function (ev) {
             // 判断手机号
-            if (!flag) {
+            if (flag) {
                 $("#phone_span").text("手机号码非法或者未注册！").css("color", "red");
             } else {
                 //huoqu  手机号
@@ -329,7 +329,7 @@
                 TimeDead(60);
                 $.ajax({
                     data: {"phone": phone},
-                    url: "${ctx}/sendMessage",
+                    url: "${ctx}/msg/sendMessage",
                     dataType: 'json',
                     type: 'post',
                     success: function (data) {

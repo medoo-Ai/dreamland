@@ -1,6 +1,5 @@
 package blog.dreamland.com.mq;
 
-import blog.dreamland.com.common.SendMessageUtil;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
