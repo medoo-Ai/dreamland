@@ -333,7 +333,7 @@
                     dataType: 'json',
                     type: 'post',
                     success: function (data) {
-                        if (data["message"] == "success") {
+                        if (data['message'] == "success") {
                             alert("ok");
                         } else {
                             alert("fail");
